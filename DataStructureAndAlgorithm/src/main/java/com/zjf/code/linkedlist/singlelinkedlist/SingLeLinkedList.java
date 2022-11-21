@@ -5,7 +5,7 @@ package com.zjf.code.linkedlist.singlelinkedlist;
  * 表示一个 单链表   提供单链表的增加一个节点、删除一个节点、插入一个节点、查找一个节点操作
  * </p>
  * <p>
- *   单链表 的插入 移除 查找 都要注意头节点的处理 ！！！
+ * 单链表 的插入 移除 查找 都要注意头节点的处理 ！！！
  * </p>
  *
  * @author zhouJianFel
@@ -173,7 +173,7 @@ public class SingLeLinkedList {
     public Node getByValue(int value) {
         //头节点为空 空链表 直接返回
         if (head == null) return null;
-        if(head.data == value){
+        if (head.data == value) {
             return head;
         }
         //不是头节点 且链表不为空 遍历所有节点
@@ -183,6 +183,32 @@ public class SingLeLinkedList {
         }
         if (q.next == null) return null;
         return q.next;
+    }
+
+    /**
+     * 链表反转
+     * 循环遍历所有节点 新建一个链表 然后头插法
+     */
+    public Node reversal() {
+        if (head == null) return null;
+        //头节点
+        Node q = head;
+        //反转头节点
+        Node rHead = null;
+        //循环
+        while (q.next != null){
+            //第一个节点
+            if(rHead == null){
+                rHead = new Node(q.data,null);
+            }else{
+                //头插法指向头节点
+                rHead = new Node(q.data,rHead);
+            }
+            q = q.next;
+        }
+        //最后一个节点
+        rHead = new Node(q.data,rHead);
+        return rHead;
     }
 
 
