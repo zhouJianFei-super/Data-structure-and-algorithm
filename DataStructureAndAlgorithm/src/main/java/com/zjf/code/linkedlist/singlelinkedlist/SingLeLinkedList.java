@@ -25,6 +25,13 @@ public class SingLeLinkedList {
     }
 
     /**
+     * 插入一个节点 尾插
+     */
+    public void add(Node e){
+        linkLast(e);
+    }
+
+    /**
      * 插入一个节点 在头部插入
      */
     public void addFirst(int e) {
@@ -103,6 +110,24 @@ public class SingLeLinkedList {
             }
             //将尾几点指向 新节点
             h.next = eLast;
+        }
+    }
+    /**
+     * 顺序插入 即 尾部插入
+     */
+    public void linkLast(Node e) {
+         if(e == null) return;
+        //如果头节点为空 让头节点指向新节点
+        if (head == null) {
+            head = e;
+        } else {
+            //如果头节点不为空，遍历链表 直到某个节点的后继指针为null。
+            Node h = head;
+            while (h.next != null) {
+                h = h.next;
+            }
+            //将尾几点指向 新节点
+            h.next = e;
         }
     }
 
@@ -196,20 +221,47 @@ public class SingLeLinkedList {
         //反转头节点
         Node rHead = null;
         //循环
-        while (q.next != null){
+        while (q.next != null) {
             //第一个节点
-            if(rHead == null){
-                rHead = new Node(q.data,null);
-            }else{
+            if (rHead == null) {
+                rHead = new Node(q.data, null);
+            } else {
                 //头插法指向头节点
-                rHead = new Node(q.data,rHead);
+                rHead = new Node(q.data, rHead);
             }
             q = q.next;
         }
         //最后一个节点
-        rHead = new Node(q.data,rHead);
+        rHead = new Node(q.data, rHead);
         return rHead;
     }
+
+
+    /**
+     * 检测怀检测
+     * 通过快慢指针法
+     */
+    public boolean hasCircle() {
+        if (head == null) return false;
+        //快指针
+        Node fast = head;
+        //慢指针
+        Node slow = head;
+        //循环检测
+        while (fast != null && fast.next != null) {
+            //先走快指针
+            fast = fast.next.next;
+            //走慢指针
+            slow = slow.next;
+            //判断是否有追上
+            if (slow == fast) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
 
 
     /**

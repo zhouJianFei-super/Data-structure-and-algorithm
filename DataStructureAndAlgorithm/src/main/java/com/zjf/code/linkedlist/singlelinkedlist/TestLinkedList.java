@@ -57,4 +57,28 @@ public class TestLinkedList {
         System.out.println("反转后:");
         System.out.println(reversal);
     }
+
+
+    /**
+     *  链表环检测  1->2->3->4->5->3
+     */
+    @Test
+    public void testSingleLinkedListHasCircle(){
+        SingLeLinkedList linkedList = new SingLeLinkedList();
+        Node node1 = new Node(1,null);
+        linkedList.add(node1);
+        Node node2 = new Node(2,null);
+        linkedList.add(node2);
+        Node node3 = new Node(3,null);
+        linkedList.add(node3);
+        Node node4 = new Node(4,null);
+        linkedList.add(node4);
+        Node node5 = new Node(5,node3);
+        linkedList.add(node5);
+        boolean b = linkedList.hasCircle();
+        if(!b){
+            linkedList.print();
+        }
+        System.out.println(b);
+    }
 }
