@@ -27,7 +27,7 @@ public class SingLeLinkedList {
     /**
      * 插入一个节点 尾插
      */
-    public void add(Node e){
+    public void add(Node e) {
         linkLast(e);
     }
 
@@ -112,11 +112,12 @@ public class SingLeLinkedList {
             h.next = eLast;
         }
     }
+
     /**
      * 顺序插入 即 尾部插入
      */
     public void linkLast(Node e) {
-         if(e == null) return;
+        if (e == null) return;
         //如果头节点为空 让头节点指向新节点
         if (head == null) {
             head = e;
@@ -216,8 +217,17 @@ public class SingLeLinkedList {
      */
     public Node reversal() {
         if (head == null) return null;
+        return doReversal(head);
+    }
+
+    public Node reversal(Node tar) {
+        if (tar == null) return null;
+        return doReversal(tar);
+    }
+
+    private Node doReversal(Node tar) {
         //头节点
-        Node q = head;
+        Node q = tar;
         //反转头节点
         Node rHead = null;
         //循环
@@ -261,7 +271,52 @@ public class SingLeLinkedList {
         return false;
     }
 
-
+    /**
+     * 将列表有序合并到当前列表
+     * 实现思路:
+     * 1.将俩个列表都按同一个顺序排序 例如全是正序排 或者 倒序排
+     * 2.比较链表的头部 如果第一链表比第二个链表头部小 开始循环第一个链表直到比第二链表大为止 然后循环往复 每一个最小值都插入到新链表中
+     * 3.注意插入新链表的时候 需要有一个引用来动态往下走 防止链表到头
+     */
+    public Node sequentialMerge(Node tar) {
+        if (head == null || tar == null) {
+            return head != null ? head : tar;
+        }
+        //判断递增顺序 全部改为从小到递增
+        Node on = head;
+        Node tw = tar;
+        if (on.next != null && on.data > on.next.data) {
+            on = reversal(on);
+        }
+        if (tw.next != null && tw.data > tw.next.data) {
+            tw = reversal(tw);
+        }
+        Node res = new Node(0, null);
+        Node cur = res;
+        //比较头节点
+        while (on != null && tw != null) {
+            if (on.data < tw.data) {
+                while (on != null && on.data < tw.data) {
+                    cur.next = new Node(on.data, null);
+                    cur = cur.next;
+                    on = on.next;
+                }
+            } else {
+                while (tw != null && on.data > tw.data) {
+                    cur.next = new Node(tw.data, null);
+                    cur = cur.next;
+                    tw = tw.next;
+                }
+            }
+        }
+        if(on != null){
+            cur.next = on;
+        }
+        if(tw != null){
+            cur.next = tw;
+        }
+        return res.next;
+    }
 
 
     /**

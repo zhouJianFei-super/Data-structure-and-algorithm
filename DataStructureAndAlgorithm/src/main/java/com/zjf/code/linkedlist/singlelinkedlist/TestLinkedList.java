@@ -81,4 +81,24 @@ public class TestLinkedList {
         }
         System.out.println(b);
     }
+
+    /**
+     *  俩个有序环检测
+     *  8 9 18
+     *  11 7 6
+     */
+    @Test
+    public void testSingleLinkedListSequentialMerge(){
+        SingLeLinkedList singLeLinkedList = new SingLeLinkedList();
+        singLeLinkedList.add(8);
+        singLeLinkedList.add(9);
+        singLeLinkedList.add(18);
+        Node node1 = new Node(11,null);
+        Node node2 = new Node(7,null);
+        Node node3 = new Node(6,null);
+        node1.next = node2;
+        node2.next = node3;
+        Node node = singLeLinkedList.sequentialMerge(node1);
+        System.out.println(node);
+    }
 }
