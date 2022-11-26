@@ -282,7 +282,7 @@ public class SingLeLinkedList {
         if (head == null || tar == null) {
             return head != null ? head : tar;
         }
-        //判断递增顺序 全部改为从小到递增
+        //判断递增顺序 全部改为从小到大递增
         Node on = head;
         Node tw = tar;
         if (on.next != null && on.data > on.next.data) {
@@ -309,13 +309,91 @@ public class SingLeLinkedList {
                 }
             }
         }
-        if(on != null){
+        if (on != null) {
             cur.next = on;
         }
-        if(tw != null){
+        if (tw != null) {
             cur.next = tw;
         }
         return res.next;
+    }
+
+
+    /**
+     * 删除倒数第n个节点
+     */
+    public void deleteByLastN(int n) {
+        if (n < 0) return;
+        if (head == null) return;
+        Node l = head;
+        //链表长度
+        int i = size();
+        //删除倒数第n个节点 只需找到他前一个节点 那么正序就是 i-n;
+        int j = 1;
+        while (l.next != null && j != i - n) {
+            j++;
+            l = l.next;
+        }
+        if (l.next == null) return;
+        l.next = l.next.next;
+
+    }
+
+    /**
+     * 链表的中间节点
+     */
+    public Node[] getCentralNode() {
+        //头节点为空
+        if (head == null) return null;
+        //当前链表长度
+        int i = size();
+        //求中间节点
+        if (i % 2 == 0) {
+            //头节点指向
+            Node q = head;
+            //起始节点
+            int j = i / 2;
+            Node[] res = new Node[2];
+            int x = 1;
+            while (q.next != null && x < j) {
+                q = q.next;
+                x++;
+            }
+            res[0] = q;
+            res[1] = q.next;
+            return res;
+        } else {
+            //头节点指向
+            Node q = head;
+            //起始节点
+            int j = (int) Math.ceil((float) i / 2);
+            Node[] res = new Node[2];
+            int x = 1;
+            while (q.next != null && x <= j) {
+                q = q.next;
+                x++;
+            }
+            res[0] = q;
+            return res;
+        }
+    }
+
+
+    /**
+     * 计算链表长度
+     */
+    public int size() {
+        if (head == null) return 0;
+        Node q = head;
+        int i = 1;
+        while (q.next != null && q.next.next != null) {
+            i = i + 2;
+            q = q.next.next;
+        }
+        if (q.next != null) {
+            i++;
+        }
+        return i;
     }
 
 

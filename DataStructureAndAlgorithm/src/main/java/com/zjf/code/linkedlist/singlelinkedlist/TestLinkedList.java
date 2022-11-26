@@ -86,6 +86,8 @@ public class TestLinkedList {
      *  俩个有序环检测
      *  8 9 18
      *  11 7 6
+     *
+     *  6 7 8 9 11 18
      */
     @Test
     public void testSingleLinkedListSequentialMerge(){
@@ -101,4 +103,51 @@ public class TestLinkedList {
         Node node = singLeLinkedList.sequentialMerge(node1);
         System.out.println(node);
     }
+
+
+    /**
+     * 删除第倒数第n个节点
+     *
+     * 4 5 6 7 8 9 10 删除倒数第二个节点
+     * 4 5 6 7 8 10
+     */
+    @Test
+    public void testSingleLinkedListDeleteByLastN(){
+        SingLeLinkedList singLeLinkedList = new SingLeLinkedList();
+        singLeLinkedList.add(4);
+        singLeLinkedList.add(5);
+        singLeLinkedList.add(6);
+        singLeLinkedList.add(7);
+        singLeLinkedList.add(8);
+        singLeLinkedList.add(9);
+        singLeLinkedList.add(10);
+        singLeLinkedList.deleteByLastN(2);
+        singLeLinkedList.print();
+    }
+
+
+    /**
+     *  去链表的中间节点
+     *
+     *  4 5 6 7 8 9 10
+     */
+    @Test
+    public void testSingleLinkedListGetCNode(){
+        SingLeLinkedList singLeLinkedList = new SingLeLinkedList();
+        singLeLinkedList.add(4);
+        singLeLinkedList.add(5);
+        singLeLinkedList.add(6);
+        singLeLinkedList.add(7);
+        singLeLinkedList.add(8);
+        singLeLinkedList.add(9);
+        singLeLinkedList.add(10);
+        singLeLinkedList.add(11);
+        Node[] node = singLeLinkedList.getCentralNode();
+        System.out.println(node[0]);
+        System.out.println(node[1]);
+    }
+
+
+
+
 }
